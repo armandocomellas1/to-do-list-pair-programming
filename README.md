@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-To Do list: interactive list
+To Do list: interactive list with drag & drop feature.
 
 > Hi there! This project is based on creating a UI list with webpack packages
 
@@ -24,7 +24,7 @@ To Do list: interactive list
 
 ## Live Demo
 
-- live Demo: [@armandocomellas1](https://armandocomellas1.github.io/to-do.-list/dist/)
+- live Demo: [@armandocomellas1](https://armandocomellas1.github.io/to-do-list-pair-programming/)
 
 ## Getting Started
 
