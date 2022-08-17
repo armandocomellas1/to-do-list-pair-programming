@@ -61,6 +61,8 @@ function addTask() {
   createDiv.classList.add('rows');
   createDiv.classList.add(newObject.index);
   createDiv.innerHTML = dataStruct;
+  createDiv.setAttribute('draggable', true);
+  createDiv.classList.add('draggable');
   getPrincial.appendChild(createDiv);
   arrayList.push(newObject);
   localStorage.setItem('List', JSON.stringify(arrayList));
@@ -69,10 +71,9 @@ function addTask() {
 
 document.getElementById('list_row').addEventListener('click', (event) => {
   if (arrayList.length > 0) {
-    const checkEvent = event.target.parentElement.className;
-    const splitArr = checkEvent.split(' ');
-    const getCharAt = splitArr[0];
-    if (getCharAt === 'rows') {
+    let checkEvent = event.target.className;
+    if (checkEvent === 'point') {
+      checkEvent = event.target.parentElement.className;
       editElement(checkEvent);
     }
   }
@@ -184,6 +185,8 @@ window.onload = (() => {
       createDiv.classList.add('rows');
       createDiv.classList.add(elem.index);
       createDiv.innerHTML = dataStruct;
+      createDiv.setAttribute('draggable', true);
+      createDiv.classList.add('draggable');
       getPrincial.appendChild(createDiv);
       const newObject = {
         description: elem.description,
