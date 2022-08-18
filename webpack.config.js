@@ -47,7 +47,4 @@ module.exports = {
       '/shared/vendor/modules',
     ],
   },
-  transformIgnorePatterns: [
-    './src/style.*/',
-  ],
 };
