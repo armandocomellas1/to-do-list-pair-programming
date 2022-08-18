@@ -1,0 +1,12 @@
+{
+  "env": {
+    "test": {
+      "plugins": [
+        "@babel/plugin-transform-modules-commonjs",
+        "@babel/plugin-transform-react-jsx-compat"
+      ]
+    }
+  }
+}
+
+
