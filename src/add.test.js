@@ -1,8 +1,6 @@
-import './index';
-
+console.log('HOla');
 const arrayList = [];
 const getPrincial = document.getElementById('list_row');
-
 function addTask(string) {
   const getList = string;
   const ggetCount = document.getElementById('list_row');

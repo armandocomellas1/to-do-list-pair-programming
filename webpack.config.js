@@ -1,9 +1,9 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash:8].js',
@@ -33,6 +33,6 @@ module.exports = {
     runtimeChunk: 'single',
   },
   resolve: {
-    extensions: ['.js', '.mjs'],
+    extensions: ['.js', '.mjs', 'html'],
   },
 };

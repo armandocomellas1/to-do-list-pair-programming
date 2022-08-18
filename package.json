@@ -11,6 +11,7 @@
       "(?!(style.css)/).*/"
     ]
   },
+  "type": "module",
   "description": "![](https://img.shields.io/badge/Microverse-blueviolet)",
   "version": "1.0.0",
   "private": true,
@@ -38,8 +39,8 @@
   "scripts": {
     "test": "jest",
     "watch": "webpack --watch",
-    "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node main.js"
   },
   "repository": {
     "type": "git",
