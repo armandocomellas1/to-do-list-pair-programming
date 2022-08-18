@@ -1,24 +1,34 @@
 {
+  "dependencies": {
+    "lighthouse": "^9.6.6"
+  },
   "name": "to-do-list-pair-programming",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.26.0",
+    "hint": "^7.1.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^21.0.0",
+    "stylelint-csstree-validator": "^1.9.0",
+    "stylelint-scss": "^3.21.0"
+  },
   "scripts": {
-    "test": "jest --coverage",
-    "watch": "jest --watch *.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/armandocomellas1/to-do-list-pair-programming.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/armandocomellas1/to-do-list-pair-programming/issues"
   },
   "homepage": "https://github.com/armandocomellas1/to-do-list-pair-programming#readme",
-  "devDependencies": {
-    "jest": "^28.1.3",
-    "jest-environment-jsdom": "^28.1.3"
-  }
+  "description": ""
 }

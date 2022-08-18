@@ -3,13 +3,13 @@
  */
 const arrayList = [];
 
-function addTask(string) {
+function addTask() {
   const getList = document.getElementsByClassName('input_t')[0].value;
   const ggetCount = document.getElementById('list_row');
-  let arrayGrow;
-  if (arrayList.length <= 0) {
+  let arrayGrow = ggetCount.childElementCount;
+  if (arrayGrow <= 0) {
     arrayGrow = 1;
-  } else if (arrayList.length > 0) {
+  } else {
     arrayGrow = ggetCount.childElementCount + 1;
   }
   const newObject = {
@@ -39,13 +39,11 @@ function addTask(string) {
   createDiv.innerHTML = dataStruct;
   createDiv.setAttribute('draggable', true);
   createDiv.classList.add('draggable');
-  if (arrayList.length > 0) {
-    const getPrincial = document.getElementById('list_row');
-    getPrincial.appendChild(createDiv);
-  }
+  const getPrincial = document.getElementById('list_row');
+  getPrincial.appendChild(createDiv);
   arrayList.push(newObject);
   localStorage.setItem('List', JSON.stringify(arrayList));
-  // document.getElementsByClassName('input_t')[0].value = '';
+  document.getElementsByClassName('input_t')[0].value = '';
   return newObject.description;
 }
 
@@ -57,39 +55,33 @@ document.getElementsByClassName('input_t')[0].addEventListener('keypress', (even
   }
 });
 
-document.getElementById('unique').addEventListener('click', () => {
-  const getDataLocal = localStorage.getItem('List');
-  const parseLocalSt = JSON.parse(getDataLocal);
-  const fileredData = parseLocalSt.filter((data) => data.completed !== true);
+const deleteElement = ((checkEvent) => {
+  let keyCode = checkEvent.split(' ')[1];
+  keyCode -= 1;
+  arrayList.splice(keyCode, 1);
+  document.getElementsByClassName(checkEvent)[0].remove();
   let resCount = 1;
-  fileredData.forEach((ind) => {
+  arrayList.forEach((ind) => {
     ind.index = resCount;
     resCount += 1;
   });
-  localStorage.setItem('List', JSON.stringify(fileredData));
-  const getListAll = document.getElementById('list_row').childElementCount;
-  let reCount = 0;
-  for (let i = 0; i < getListAll; i += 1) {
-    const getOne = document.getElementById('list_row').childNodes[reCount].childNodes[1].childNodes[1];
-    const another = getOne.checked;
-    if (another === true) {
-      if (reCount === 0) {
-        document.getElementById('list_row').childNodes[reCount].remove();
-        reCount = 0;
-      } else {
-        document.getElementById('list_row').childNodes[reCount].remove();
-        reCount = 1;
-      }
-    } else {
-      reCount += 1;
-    }
-  }
-  if (getListAll <= 1) {
-    const getOne = document.getElementById('list_row').childNodes[0].childNodes[1].childNodes[1];
-    const another = getOne.checked;
-    if (another === true) {
-      document.getElementById('list_row').childNodes[0].remove();
-    }
+  localStorage.setItem('List', JSON.stringify(arrayList));
+});
+
+document.getElementById('list_row').addEventListener('click', (event) => {
+  const checkEvent = event.target.parentElement.className;
+  const checkIcon = event.target.className;
+  const splitArr = checkEvent.split(' ');
+  const getCharAt = splitArr[0];
+  if (getCharAt === 'rows' && checkIcon === 'point') {
+    const storeData = document.getElementsByClassName(checkEvent)[0];
+    storeData.getElementsByClassName('point')[0].style.display = 'none';
+    storeData.getElementsByClassName('delete_img')[0].style.display = 'flex';
+    storeData.getElementsByClassName('editable')[0].contentEditable = true;
+    storeData.getElementsByClassName('editable')[0].focus();
+    storeData.style.backgroundColor = 'rgb(231, 230, 177)';
+  } else if (getCharAt === 'rows' && checkIcon === 'delete_img') {
+    deleteElement(checkEvent);
   }
 });
 
