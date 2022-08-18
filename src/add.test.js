@@ -1,15 +1,15 @@
-import './index';
-
+/**
+ * @jest-environment jsdom
+ */
 const arrayList = [];
-const getPrincial = document.getElementById('list_row');
 
 function addTask(string) {
-  const getList = string;
+  const getList = document.getElementsByClassName('input_t')[0].value;
   const ggetCount = document.getElementById('list_row');
-  let arrayGrow = ggetCount.childElementCount;
-  if (arrayGrow <= 0) {
+  let arrayGrow;
+  if (arrayList.length <= 0) {
     arrayGrow = 1;
-  } else {
+  } else if (arrayList.length > 0) {
     arrayGrow = ggetCount.childElementCount + 1;
   }
   const newObject = {
@@ -39,26 +39,60 @@ function addTask(string) {
   createDiv.innerHTML = dataStruct;
   createDiv.setAttribute('draggable', true);
   createDiv.classList.add('draggable');
-  getPrincial.appendChild(createDiv);
+  if (arrayList.length > 0) {
+    const getPrincial = document.getElementById('list_row');
+    getPrincial.appendChild(createDiv);
+  }
   arrayList.push(newObject);
   localStorage.setItem('List', JSON.stringify(arrayList));
-  document.getElementsByClassName('input_t')[0].value = '';
+  // document.getElementsByClassName('input_t')[0].value = '';
   return newObject.description;
 }
 
-// const deleteElement = ((checkEvent) => {
-//   let keyCode = checkEvent.split(' ')[1];
-//   keyCode -= 1;
-//   arrayList.splice(keyCode, 1);
-//   document.getElementsByClassName(checkEvent)[0].remove();
-//   let resCount = 1;
-//   arrayList.forEach((ind) => {
-//     ind.index = resCount;
-//     resCount += 1;
-//   });
-//   localStorage.setItem('List', JSON.stringify(arrayList));
-// });
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(addTask('Armando')).not.toBe('');
+document.getElementsByClassName('input_t')[0].addEventListener('keypress', (event) => {
+  const keyCode = event.keyCode ? event.keyCode : event.which;
+  if (keyCode === 13) {
+    // call click function of the buttonn
+    addTask();
+  }
 });
+
+document.getElementById('unique').addEventListener('click', () => {
+  const getDataLocal = localStorage.getItem('List');
+  const parseLocalSt = JSON.parse(getDataLocal);
+  const fileredData = parseLocalSt.filter((data) => data.completed !== true);
+  let resCount = 1;
+  fileredData.forEach((ind) => {
+    ind.index = resCount;
+    resCount += 1;
+  });
+  localStorage.setItem('List', JSON.stringify(fileredData));
+  const getListAll = document.getElementById('list_row').childElementCount;
+  let reCount = 0;
+  for (let i = 0; i < getListAll; i += 1) {
+    const getOne = document.getElementById('list_row').childNodes[reCount].childNodes[1].childNodes[1];
+    const another = getOne.checked;
+    if (another === true) {
+      if (reCount === 0) {
+        document.getElementById('list_row').childNodes[reCount].remove();
+        reCount = 0;
+      } else {
+        document.getElementById('list_row').childNodes[reCount].remove();
+        reCount = 1;
+      }
+    } else {
+      reCount += 1;
+    }
+  }
+  if (getListAll <= 1) {
+    const getOne = document.getElementById('list_row').childNodes[0].childNodes[1].childNodes[1];
+    const another = getOne.checked;
+    if (another === true) {
+      document.getElementById('list_row').childNodes[0].remove();
+    }
+  }
+});
+
+// test('adds 1 + 2 to equal 3', () => {
+//   expect(addTask(getInput)).not.toBe('');
+// });
