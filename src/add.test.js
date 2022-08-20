@@ -1,62 +1,43 @@
-console.log('HOla');
-const arrayList = [];
-const getPrincial = document.getElementById('list_row');
-function addTask(string) {
-  const getList = string;
-  const ggetCount = document.getElementById('list_row');
-  let arrayGrow = ggetCount.childElementCount;
-  if (arrayGrow <= 0) {
-    arrayGrow = 1;
-  } else {
-    arrayGrow = ggetCount.childElementCount + 1;
-  }
-  const newObject = {
-    description: getList,
-    completed: false,
-    index: arrayGrow,
-  };
-  const dataStruct = `
-    <div class="list">
-      <input class="select" type="checkbox">
-      <p class="editable">${newObject.description}</p>
-    </div>
-    <div class="point">
-      <div class="points"></div>
-      <div class="points"></div>
-      <div class="points"></div>
-    </div>
-    <div class="delete_img">
-      <div class="pointv"></div>
-      <div class="pointv"></div>
-      <div class="pointv"></div>
-    </div>
-  `;
-  const createDiv = document.createElement('div');
-  createDiv.classList.add('rows');
-  createDiv.classList.add(newObject.index);
-  createDiv.innerHTML = dataStruct;
-  createDiv.setAttribute('draggable', true);
-  createDiv.classList.add('draggable');
-  getPrincial.appendChild(createDiv);
-  arrayList.push(newObject);
-  localStorage.setItem('List', JSON.stringify(arrayList));
-  document.getElementsByClassName('input_t')[0].value = '';
-  return newObject.description;
-}
+/**
+ * @jest-environment jsdom
+ */
+import addLine from './addItem';
 
-// const deleteElement = ((checkEvent) => {
-//   let keyCode = checkEvent.split(' ')[1];
-//   keyCode -= 1;
-//   arrayList.splice(keyCode, 1);
-//   document.getElementsByClassName(checkEvent)[0].remove();
-//   let resCount = 1;
-//   arrayList.forEach((ind) => {
-//     ind.index = resCount;
-//     resCount += 1;
-//   });
-//   localStorage.setItem('List', JSON.stringify(arrayList));
-// });
+window.localStorage = Storage.prototype;
+document.body.innerHTML = `
+<div class="container">
+  <div class="cont_title">
+    <div class="title">Today's To Do</div>
+    <div class="img_refresh"></div>
+  </div>
+  <div class="add_list">
+    <input class="input_two" type="text" placeholder="Add to your list..." value="">
+    <div class="img_list"></div>
+  </div>
+  <div id="list_row" class="contains"></div>
+  <button id="unique" class="footer" type="reset">Clear all completed</button>
+</div>
+`;
+const getContainer = document.getElementById('list_row');
+const getOBject = addLine.addItem('Finish Challenge');
+getContainer.appendChild(getOBject);
+const getCount = getOBject.index;
+const getNameInput = document.getElementsByClassName('editable')[0].innerHTML;
+const getObjectProp = getOBject.classList.value;
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(addTask('Armando')).not.toBe('');
+describe('Test add and remove', () => {
+  test('Expect input text should not be empty', () => {
+    const validateInput = addLine.addItem(getNameInput);
+    expect(validateInput).not.toBe('');
+  });
+
+  test('Expect object of list has not index of cero', () => {
+    const validateInput = addLine.addItem(getCount);
+    expect(validateInput).not.toBe(0);
+  });
+
+  test('Expect to remove exactly the line', () => {
+    const validateInput = addLine.deleteElement(getObjectProp);
+    expect(validateInput).toBeUndefined();
+  });
 });

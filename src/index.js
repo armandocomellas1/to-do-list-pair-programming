@@ -91,10 +91,12 @@ document.getElementById('list_row').addEventListener('click', (event) => {
   }
 });
 // document.getElementsByClassName('input_t')[0].addEventListener('focusout', addTask);
+
 document.getElementsByClassName('input_t')[0].addEventListener('keypress', (event) => {
   const keyCode = event.keyCode ? event.keyCode : event.which;
   if (keyCode === 13) {
     // call click function of the buttonn
+    // const nameEvent = document.getElementsByClassName('input_t')[0].value;
     addTask();
   }
 });
