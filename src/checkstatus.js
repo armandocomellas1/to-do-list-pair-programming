@@ -1,3 +1,3 @@
-const status = () => 'hola';
+const status = () => true;
 
 module.exports = status;

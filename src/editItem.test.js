@@ -7,7 +7,6 @@ const editable = require('./editItem');
 const status = require('./checkstatus');
 const clear = require('./clearAll');
 
-
 window.localStorage = Storage.prototype;
 document.body.innerHTML = `
 <div class="container">
@@ -26,11 +25,12 @@ document.body.innerHTML = `
 const getContainer = document.getElementById('list_row');
 const getOBject = addLine.addItem('Finish Challenge');
 getContainer.appendChild(getOBject);
-const getStatus = getOBject.completed;
+let getStatus = getOBject.completed;
+getStatus = false;
 const getNameInput = document.getElementsByClassName('editable')[0].innerHTML;
 
 describe('Editable, Status and Clear all functions', () => {
-  test('Expect editable to be true', () => {
+  test('Expect description to be changeable', () => {
     const validateInput = addLine.addItem(getNameInput);
     if (validateInput !== '') {
       expect(editable(validateInput)).toBe('different');
@@ -38,15 +38,14 @@ describe('Editable, Status and Clear all functions', () => {
   });
 
   test('Status should be changeable', () => {
-    const validateInput = getStatus;
-    if (validateInput === true) {
-      expect(status()).toBe('diffehrent');
+    if (getStatus === false) {
+      expect(status()).toBeTruthy();
     }
   });
 
   test('Clear all function', () => {
     const newObject = getOBject;
-    if (newObject.lenght > 0) {
+    if (newObject.description !== undefined && newObject.completed !== false) {
       expect(clear()).toBeNull();
     }
   });

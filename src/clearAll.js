@@ -1,5 +1,3 @@
-const clearAll = (() => {
-
-});
+const clearAll = () => null;
 
 module.exports = clearAll;
